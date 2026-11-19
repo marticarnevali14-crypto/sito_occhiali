@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TINA – occhiali di Martina Carnevali</title>
+    <!-- i caratteri: Syne per i titoli, Inter per i testi -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/stile.css">
+</head>
+<body>
+
+    <!-- ===== la barra in alto ===== -->
+    <header class="barra">
+        <a class="marchio" href="#intro">TINA</a>
+        <nav class="menu">
+            <a href="#prospettive">Prospettive</a>
+            <a href="#esploso">Esploso</a>
+            <a href="#prova">Provali</a>
+            <a href="#acquista">Acquista</a>
+            <a href="#carrello" class="menu-carrello">Carrello <span class="conta" id="conta-carrello">0</span></a>
+        </nav>
+    </header>
+
+
+    <!-- ===== 1. INTRO: gli occhiali entrano con la scia, poi compare il titolo ===== -->
+    <section class="intro" id="intro">
+        <canvas id="intro-canvas"></canvas>
+
+        <div class="intro-testo">
+            <p class="sovratitolo">Occhiali · Design di Martina Carnevali</p>
+            <!-- ogni lettera è uno <span>: entrano una dopo l'altra (--i = il loro numero) -->
+            <h1 class="titolo-intro" aria-label="Tina">
+                <span style="--i:0">T</span><span style="--i:1">I</span><span style="--i:2">N</span><span style="--i:3">A</span>
+            </h1>
+            <p class="payoff">Vedi oltre. Lascia il segno.</p>
+        </div>
+
+        <button class="rivedi" id="intro-rivedi">Rivedi l'entrata</button>
+        <a class="scorri" href="#prospettive" aria-label="Scorri giù">Scorri</a>
+    </section>
+
+
+    <!-- ===== 2. PROSPETTIVE: il visore a sinistra, le viste a destra ===== -->
+    <section class="sezione" id="prospettive">
+        <div class="contenitore">
+            <div class="intestazione">
+                <p class="sovratitolo">01 — Prospettive</p>
+                <h2>Da ogni lato</h2>
+                <p class="testo">Scegli una vista a destra: gli occhiali si girano per mostrartela. Puoi anche trascinarli e avvicinarti con la rotella.</p>
+            </div>
+
+            <div class="riga">
+                <div class="visore" id="visore-prospettive">
+                    <p class="attesa">Caricamento…</p>
+                </div>
+                <!-- qui prospettive.js mette le miniature delle viste -->
+                <div class="vedute" id="vedute"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===== 3. ESPLOSO: tutti i componenti, con il loro nome ===== -->
+    <section class="sezione" id="esploso">
+        <div class="contenitore">
+            <div class="intestazione">
+                <p class="sovratitolo">02 — Esploso</p>
+                <h2>Pezzo per pezzo</h2>
+                <p class="testo">Gli occhiali si aprono in tutti i loro componenti, si ricompongono e piegano le aste. Trascina per girarli.</p>
+            </div>
+
+            <div class="visore visore-largo" id="visore-esploso">
+                <p class="attesa">Caricamento…</p>
+                <!-- il livello con le scritte dei componenti (le muove esploso.js) -->
+                <div class="etichette" id="etichette-esploso"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===== 4. PROVALI: la fotocamera a sinistra, i comandi a destra ===== -->
+    <section class="sezione" id="prova">
+        <div class="contenitore">
+            <div class="intestazione">
+                <p class="sovratitolo">03 — Provali</p>
+                <h2>Indossali adesso</h2>
+                <p class="testo">Accendi la fotocamera: gli occhiali si appoggiano sul tuo viso e seguono la testa. Cambia i colori, la misura e scatta una foto.</p>
+            </div>
+
+            <div class="riga">
+                <div class="prova-schermo" id="prova-schermo">
+                    <video id="prova-video" playsinline muted></video>
+                    <canvas id="prova-canvas"></canvas>
+                    <button class="bottone bottone-chiaro" id="prova-accendi">Accendi la fotocamera</button>
+                    <p class="prova-messaggio" id="prova-messaggio"></p>
+                </div>
+
+                <div class="comandi">
+                    <button class="bottone bottone-pieno" id="prova-foto" disabled>Scatta la foto</button>
+
+                    <div class="comando">
+                        <h3>Misura <span id="prova-valore-misura">100%</span></h3>
+                        <input type="range" class="slider" id="prova-misura" min="80" max="120" step="1" value="100" aria-label="Misura degli occhiali">
+                    </div>
+
+                    <div class="comando">
+                        <h3>Lente <span id="prova-nome-lente">Fuoco</span></h3>
+                        <div class="campioni" id="prova-lenti"></div>
+                    </div>
+
+                    <div class="comando">
+                        <h3>Montatura <span id="prova-nome-montatura">Rosso</span></h3>
+                        <div class="campioni" id="prova-montature"></div>
+                    </div>
+
+                    <button class="bottone" id="prova-spegni" disabled>Spegni la fotocamera</button>
+
+                    <!-- l'ultima foto scattata -->
+                    <div class="scatto" id="prova-scatto">
+                        <img id="prova-anteprima" alt="L'ultima foto scattata">
+                        <a class="bottone" id="prova-scarica" href="#" download="tina-prova.png">Scarica la foto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===== 5. ACQUISTA: lo stesso modello in quattro colori, con il carrello ===== -->
+    <section class="sezione" id="acquista">
+        <div class="contenitore">
+            <div class="intestazione">
+                <p class="sovratitolo">04 — Acquista</p>
+                <h2>Trova il tuo colore</h2>
+                <p class="testo">Un solo modello, quattro caratteri diversi. Clicca su una foto per vederli di fronte, oppure provali sul tuo viso.</p>
+            </div>
+
+            <!-- qui vendita.js crea le schede dei prodotti -->
+            <div class="prodotti" id="prodotti"></div>
+
+            <!-- il carrello -->
+            <div class="carrello" id="carrello">
+                <div class="carrello-testa">
+                    <h3>Carrello</h3>
+                    <button class="carrello-svuota" id="carrello-svuota">Svuota</button>
+                </div>
+                <ul class="carrello-lista" id="carrello-lista"></ul>
+                <p class="carrello-vuoto" id="carrello-vuoto">Il carrello è vuoto.</p>
+                <div class="carrello-piede">
+                    <p class="carrello-totale">Totale <strong id="carrello-totale">0 €</strong></p>
+                    <button class="bottone bottone-pieno" id="carrello-cassa" disabled>Vai alla cassa</button>
+                </div>
+                <p class="carrello-nota" id="carrello-nota">Questo è un sito dimostrativo: il pagamento non è attivo.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="piede">
+        <p><strong>TINA</strong> · design di Martina Carnevali</p>
+    </footer>
+
+
+    <!-- Three.js da CDN (versione 0.128): la libreria e i suoi aiutanti -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/environments/RoomEnvironment.js"></script>
+
+    <!-- il sito -->
+    <script src="js/comune.js"></script>
+    <script src="js/intro.js"></script>
+    <script src="js/prospettive.js"></script>
+    <script src="js/esploso.js"></script>
+    <script src="js/prova.js"></script>
+    <script src="js/vendita.js"></script>
+
+</body>
+</html>
